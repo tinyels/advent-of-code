@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestFuelForLaunch(t *testing.T) {
+func TestIntCode(t *testing.T) {
 	tables := []struct {
 		input  []int
 		output []int

@@ -2,10 +2,13 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 	"strings"
+
+	"./lib"
 )
 
 func readFileAsIntArray(path string) ([]int, error) {
@@ -34,5 +37,13 @@ func readFileAsIntArray(path string) ([]int, error) {
 }
 
 func main() {
-	readFileAsIntArray("input")
+	ints, err := readFileAsIntArray("input")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(ints)
+	ints[1] = 12
+	ints[2] = 2
+	output := lib.Intcode(ints)
+	fmt.Println(output)
 }
