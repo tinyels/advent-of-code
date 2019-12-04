@@ -1,4 +1,4 @@
-package one
+package lib
 
 func FuelRequiredToLaunch(mass int) int {
 	f := (mass / 3) - 2

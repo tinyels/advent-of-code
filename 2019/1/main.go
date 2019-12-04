@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./one"
+	"./lib"
 	"bufio"
 	"fmt"
 	"log"
@@ -35,8 +35,8 @@ func dayOne() {
 		log.Fatal(err)
 	}
 	for _, value := range values {
-		totalFuelRequired += one.FuelRequiredToLaunch(value)
-		totalInclusiveFuel += one.InclusiveFuelRequiredToLaunch(value)
+		totalFuelRequired += lib.FuelRequiredToLaunch(value)
+		totalInclusiveFuel += lib.InclusiveFuelRequiredToLaunch(value)
 	}
 	fmt.Println(totalFuelRequired)
 	fmt.Println(totalInclusiveFuel)
