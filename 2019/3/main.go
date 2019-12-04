@@ -1,6 +1,7 @@
 package main
 
 import (
+	"../util"
 	"./lib"
 	"bufio"
 	"fmt"
@@ -9,7 +10,7 @@ import (
 
 func readFile(path string) []string {
 	file, err := os.Open(path)
-	lib.Check(err)
+	util.Check(err)
 	defer file.Close()
 
 	var lines []string
@@ -21,7 +22,7 @@ func readFile(path string) []string {
 }
 
 func partOne(input []string) {
-	fmt.Println("part1: ", lib.SolvePartOne(input[0], input[1]))
+	fmt.Println("part1: ", lib.GetClosestDistance(input[0], input[1]))
 }
 func partTwo(input []string) {
 	fmt.Println("part 2:", lib.GetFewestSteps(input[0], input[1]))

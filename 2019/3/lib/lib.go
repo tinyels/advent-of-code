@@ -1,18 +1,33 @@
 package lib
 
-import "strconv"
 import "strings"
+import "../../util"
 
 type Coordinate struct {
 	x int
 	y int
 }
 
-func SolvePartOne(a string, b string) int {
+func GetClosestDistance(a string, b string) int {
 	origin := Coordinate{0, 0}
 	aWire := GetWireCoordinates(origin, a)
 	bWire := GetWireCoordinates(origin, b)
-	return GetClosestIntersectionDistance(aWire, bWire)
+	return getClosestIntersectionDistance(aWire, bWire)
+}
+
+func GetFewestSteps(a string, b string) int {
+	origin := Coordinate{0, 0}
+	aWire := GetWireCoordinates(origin, a)
+	bWire := GetWireCoordinates(origin, b)
+	steps := -1
+	for _, item := range Intersection(aWire, bWire) {
+		if steps == -1 {
+			steps = 2 + indexOf(item, aWire) + indexOf(item, bWire)
+		} else {
+			steps = util.MinInt(steps, 2+indexOf(item, aWire)+indexOf(item, bWire))
+		}
+	}
+	return steps
 }
 
 func ManhattanDistance(a Coordinate, b Coordinate) int {
@@ -26,7 +41,7 @@ func GetWireCoordinates(startingCoordinates Coordinate, instructions string) []C
 
 	for _, instruction := range strings.Split(instructions, ",") {
 		direction := instruction[:1]
-		distance := getInt(instruction[1:])
+		distance := util.GetIntFromString(instruction[1:])
 
 		for i := 0; i < distance; i++ {
 			switch direction {
@@ -47,34 +62,19 @@ func GetWireCoordinates(startingCoordinates Coordinate, instructions string) []C
 	return wire
 }
 
-func GetClosestIntersectionDistance(a []Coordinate, b []Coordinate) int {
+func getClosestIntersectionDistance(a []Coordinate, b []Coordinate) int {
 	origin := Coordinate{0, 0}
 	shortestDistance := -1
 	for _, item := range Intersection(a, b) {
 		if shortestDistance == -1 {
 			shortestDistance = ManhattanDistance(origin, item)
 		} else {
-			shortestDistance = min(shortestDistance, ManhattanDistance(origin, item))
+			shortestDistance = util.MinInt(shortestDistance, ManhattanDistance(origin, item))
 		}
 	}
 	return shortestDistance
 }
 
-func GetFewestSteps(a string, b string) int {
-	origin := Coordinate{0, 0}
-	aWire := GetWireCoordinates(origin, a)
-	bWire := GetWireCoordinates(origin, b)
-	steps := -1
-	for _, item := range Intersection(aWire, bWire) {
-		if steps == -1 {
-			steps = 2 + indexOf(item, aWire) + indexOf(item, bWire)
-		} else {
-			steps = min(steps, 2+indexOf(item, aWire)+indexOf(item, bWire))
-		}
-	}
-	return steps
-
-}
 func Intersection(a []Coordinate, b []Coordinate) []Coordinate {
 	set := make([]Coordinate, 0)
 	for _, item := range a {
@@ -100,18 +100,6 @@ func abs(a int) int {
 	return a
 }
 
-func getInt(s string) int {
-	i, err := strconv.Atoi(s)
-	Check(err)
-	return i
-}
-
-func min(a int, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
 func indexOf(element Coordinate, data []Coordinate) int {
 	for k, v := range data {
 		if element == v {
@@ -119,9 +107,4 @@ func indexOf(element Coordinate, data []Coordinate) int {
 		}
 	}
 	return -1 //not found.
-}
-func Check(err error) {
-	if err != nil {
-		panic(err)
-	}
 }

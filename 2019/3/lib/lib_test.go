@@ -57,7 +57,7 @@ func TestSolve(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		result := SolvePartOne(table.a, table.b)
+		result := GetClosestDistance(table.a, table.b)
 		if result != table.output {
 			t.Errorf("result was incorrect, got %d, want %d", result, table.output)
 		}
