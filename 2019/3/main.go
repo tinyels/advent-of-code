@@ -23,10 +23,11 @@ func readFile(path string) []string {
 func partOne(input []string) {
 	fmt.Println("part1: ", lib.SolvePartOne(input[0], input[1]))
 }
-func partTwo(input []int) {
+func partTwo(input []string) {
+	fmt.Println("part 2:", lib.GetFewestSteps(input[0], input[1]))
 }
 func main() {
 	lines := readFile("input")
 	partOne(lines)
-	//	partTwo(ints)
+	partTwo(lines)
 }

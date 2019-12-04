@@ -59,6 +59,22 @@ func GetClosestIntersectionDistance(a []Coordinate, b []Coordinate) int {
 	}
 	return shortestDistance
 }
+
+func GetFewestSteps(a string, b string) int {
+	origin := Coordinate{0, 0}
+	aWire := GetWireCoordinates(origin, a)
+	bWire := GetWireCoordinates(origin, b)
+	steps := -1
+	for _, item := range Intersection(aWire, bWire) {
+		if steps == -1 {
+			steps = 2 + indexOf(item, aWire) + indexOf(item, bWire)
+		} else {
+			steps = min(steps, 2+indexOf(item, aWire)+indexOf(item, bWire))
+		}
+	}
+	return steps
+
+}
 func Intersection(a []Coordinate, b []Coordinate) []Coordinate {
 	set := make([]Coordinate, 0)
 	for _, item := range a {
@@ -95,6 +111,14 @@ func min(a int, b int) int {
 		return a
 	}
 	return b
+}
+func indexOf(element Coordinate, data []Coordinate) int {
+	for k, v := range data {
+		if element == v {
+			return k
+		}
+	}
+	return -1 //not found.
 }
 func Check(err error) {
 	if err != nil {
