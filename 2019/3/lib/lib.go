@@ -77,11 +77,17 @@ func getClosestIntersectionDistance(a []Coordinate, b []Coordinate) int {
 
 func Intersection(a []Coordinate, b []Coordinate) []Coordinate {
 	set := make([]Coordinate, 0)
+	hash := make(map[Coordinate]bool)
 	for _, item := range a {
-		if contains(item, b) {
+		hash[item] = true
+
+	}
+	for _, item := range b {
+		if _, found := hash[item]; found {
 			set = append(set, item)
 		}
 	}
+
 	return set
 }
 
