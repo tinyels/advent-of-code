@@ -22,7 +22,7 @@ func readFile(path string) []string {
 }
 
 func partOne(input []string) {
-	fmt.Println("part1: ", lib.GetClosestDistance(input[0], input[1]))
+	fmt.Println("part 1: ", lib.GetClosestDistance(input[0], input[1]))
 }
 func partTwo(input []string) {
 	fmt.Println("part 2:", lib.GetFewestSteps(input[0], input[1]))
